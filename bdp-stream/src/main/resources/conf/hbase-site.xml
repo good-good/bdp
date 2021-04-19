@@ -4,7 +4,7 @@
 <configuration>
     <property>
         <name>hbase.rootdir</name>
-        <value>hdfs://nameservice1/hbase</value>
+        <value>hdfs://bdp001:8020/hbase</value>
     </property>
     <property>
         <name>hbase.client.write.buffer</name>
@@ -100,7 +100,7 @@
     </property>
     <property>
         <name>hbase.zookeeper.quorum</name>
-        <value>master1.cluster,master2.cluster,utility1.cluster</value>
+        <value>bdp003,bdp001,bdp002</value>
     </property>
     <property>
         <name>hbase.zookeeper.property.clientPort</name>

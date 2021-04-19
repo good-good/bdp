@@ -159,38 +159,38 @@ FLUSH PRIVILEGES;
 
 ```bash
 kafka-topics \
-    --zookeeper master1.cluster:2181,master1.cluster:2181,utility1.cluster:2181 \
+    --zookeeper bdp001:2181,bdp002:2181,bdp003:2181 \
     --create \
     --topic cpu.usage \
     --partitions 12 \
     --replication-factor 3
 
 kafka-topics \
-    --zookeeper master1.cluster:2181,master1.cluster:2181,utility1.cluster:2181 \
+    --zookeeper bdp001:2181,bdp002:2181,bdp003:2181 \
     --describe \
     --topic cpu.usage
 
 kafka-topics \
-    --zookeeper master1.cluster:2181,master1.cluster:2181,utility1.cluster:2181 \
+    --zookeeper bdp001:2181,bdp002:2181,bdp003:2181 \
     --create \
     --topic mem.used \
     --partitions 12 \
     --replication-factor 3
 
 kafka-topics \
-    --zookeeper master1.cluster:2181,master1.cluster:2181,utility1.cluster:2181 \
+    --zookeeper bdp001:2181,bdp002:2181,bdp003:2181 \
     --describe \
     --topic mem.used
 
 kafka-topics \
-    --zookeeper master1.cluster:2181,master1.cluster:2181,utility1.cluster:2181 \
+    --zookeeper bdp001:2181,bdp002:2181,bdp003:2181 \
     --create \
     --topic alert \
     --partitions 12 \
     --replication-factor 3
 
 kafka-topics \
-    --zookeeper master1.cluster:2181,master1.cluster:2181,utility1.cluster:2181 \
+    --zookeeper bdp001:2181,bdp002:2181,bdp003:2181 \
     --describe \
     --topic alert
 ```
@@ -259,8 +259,8 @@ collation_server=utf8_general_ci
 wsrep_provider=/usr/lib64/galera-3/libgalera_smm.so
 wsrep_provider_options="gcache.size=300M; gcache.page_size=300M"
 wsrep_cluster_name="mysql_cluster"
-wsrep_cluster_address="gcomm://master1.cluster,master2.cluster,utility1.cluster"
-wsrep_node_name="master1.cluster"
+wsrep_cluster_address="gcomm://bdp001,bdp002,bdp003"
+wsrep_node_name="bdp001"
 wsrep_node_address="10.0.0.86"
 wsrep_sst_method=rsync
 
@@ -305,8 +305,8 @@ server {
 tee /etc/yum.repos.d/cloudera-manager.repo <<EOF
 [cloudera-manager]
 name=Cloudera Manager 5.15.2
-baseurl=http://utility1.cluster/cloudera-repos/cm5/redhat/7/x86_64/cm/5.15.2/
-gpgkey=http://utility1.cluster/cloudera-repos/cm5/redhat/7/x86_64/cm/RPM-GPG-KEY-cloudera
+baseurl=http://bdp003/cloudera-repos/cm5/redhat/7/x86_64/cm/5.15.2/
+gpgkey=http://bdp003/cloudera-repos/cm5/redhat/7/x86_64/cm/RPM-GPG-KEY-cloudera
 gpgcheck=1
 EOF
 ```
@@ -429,6 +429,7 @@ alternatives --install /usr/bin/spark-shell spark-shell /opt/cloudera/parcels/SP
 alternatives --install /usr/bin/spark-sql spark-sql /opt/cloudera/parcels/SPARK2/bin/spark2-sql 1
 alternatives --install /usr/bin/spark-submit spark-submit /opt/cloudera/parcels/SPARK2/bin/spark2-submit 1
 alternatives --install /etc/spark/conf spark-conf /etc/spark2/conf.cloudera.spark2_on_yarn 1
-alternatives --remove spark-shell /opt/cloudera/parcels/CDH-5.15.2-1.cdh5.15.2.p0.3/bin/spark-shell
-alternatives --remove spark-submit /opt/cloudera/parcels/CDH-5.15.2-1.cdh5.15.2.p0.3/bin/spark-submit
+alternatives --remove spark-shell /opt/cloudera/parcels/CDH-5.16.1-1.cdh5.16.1.p0.3/bin/spark-shell
+alternatives --remove spark-submit /opt/cloudera/parcels/CDH-5.16.1-1.cdh5.16.1.p0.3/bin/spark-submit
+alternatives --remove spark-conf /opt/cloudera/parcels/CDH-5.16.1-1.cdh5.16.1.p0.3/etc/spark/conf.dist
 ```
